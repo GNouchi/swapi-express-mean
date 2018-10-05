@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://code.jquery.com/jquery-3.3.1.js"> </script>
+<style>
+    body{background:#C0C0C0;}
+    .container{
+        margin: 5%;
+        padding: 5%;
+        min-width: 600px;
+        min-height: 600px;
+    }
+    button{
+        display: inline-block;
+        margin-left: 200px; 
+        }
+    .main{
+        margin: 20px 0px 0px 50px;
+        width: 600px;
+        min-height: 400px;
+        background: #B0B0B0;
+        border: 2px  silver solid ;
+    }
+    .links{
+        margin-left:50px;
+    }
+    .middle{
+        margin-left: 150px;
+    }
+    .last{
+        margin-left: 200px;
+    }
+    button{padding:15px; border-radius: 4px;  }
+    </style>
+</head>
+<body>
+    <h1> Star wars ajax app 
+        (<span id ="cnt"><%= (counter-1)*10 +1 %> - <%= counter*10 %></span>)
+    </h1>
+    <div>
+        <button id="people" class ="button" type="submit">People</button>
+        <button id="planets" class ="button" type="submit">Planets</button>
+    </div>
+    <div class="main">
+        <div class="container"> 
+            <div id="target">
+                <!-- stuff goes here via ajax  -->
+            </div>
+        </div>
+    </div>
+            <button id="previous"  class ="links" type="submit">Previous 10</button>
+            <button id="all"  class ="middle" >All- not built yet</button>
+            <button id="next" type="submit">Next 10</button>
+
+
+</body>
+<script>
+$(document).ready(function(){
+
+    $('#people').click(function(){
+        $.get('/people', function(data){
+            console.log("got the data from people", data);            
+            document.getElementById('target').innerHTML ='';
+            for(let i = 0, temp; i < data.length-1 ; i++){
+                temp = `<li> ${data[i]}</li>`;
+                $('#target').append(temp);
+            }
+        }, 'json');
+    });
+
+    $('#planets').click(function(){
+        $.get('/planets', function(data){
+            console.log("got the data from people", data);
+            document.getElementById('target').innerHTML ='';
+            for(let i = 0, temp; i < data.length-1 ; i++){
+                temp = `<li> ${data[i]}</li>`;
+                $('#target').append(temp);
+            }
+        }, 'json');
+    });
+
+    $('#next').click(function(){
+        $.get('/next', function(data){
+            console.log("got the data from people", data);
+            document.getElementById('target').innerHTML ='';
+            document.getElementById('cnt').innerHTML = '';
+            for(let i = 0, temp; i < data.length-1 ; i++){
+                temp = `<li> ${data[i]}</li>`;
+                $('#target').append(temp);
+            }
+            let str = `${(data[data.length-1])*10-9} - ${(data[data.length-1])*10}`;
+            $('#cnt').append(str);
+        }, 'json');
+    });
+
+    $('#previous').click(function(){
+        $.get('/previous', function(data){
+            console.log("got the data from people", data);
+            document.getElementById('target').innerHTML ='';
+            document.getElementById('cnt').innerHTML = '';
+            for(let i = 0, temp; i < data.length-1 ; i++){
+                temp = `<li> ${data[i]}</li>`;
+                $('#target').append(temp);
+            }
+            let str = `${(data[data.length-1])*10-9} - ${(data[data.length-1])*10}`;
+            $('#cnt').append(str);
+        }, 'json');
+    });
+
+    // $('#all').click(function(){
+    //     $.get('/all', function(data){
+    //         console.log("got the data from people", data);
+    //         document.getElementById('target').innerHTML ='';
+    //         document.getElementById('cnt').innerHTML = 'all';
+    //         for(let i = 0, temp; i < data.length-1 ; i++){
+    //             temp = `<li> ${data[i]}</li>`;
+    //             $('#target').append(temp);
+    //         }
+    //     }, 'json');
+    // });
+
+});
+</script>
+
+
+</html>

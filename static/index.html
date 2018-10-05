@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+    body{background:#C0C0C0;}
+    .container{
+        margin: 5%;
+        padding: 5%;
+        min-width: 600px;
+        min-height: 600px;
+    }
+    button{
+        display: inline-block;
+        margin-left: 200px; 
+        }
+    .main{
+        margin: 20px 0px 0px 50px;
+        width: 600px;
+        min-height: 400px;
+        background: #B0B0B0;
+        border: 2px  silver solid ;
+    }
+    .links{
+        margin-left:50px;
+    }
+    .middle{
+        margin-left: 200px;
+    }
+    .last{
+        margin-left: 200px;
+    }
+    button{padding:15px; border-radius: 4px;  }
+    </style>
+</head>
+<body>
+    <h1> Star wars ajax app</h1>
+    <h3>Click le buttonz</h3>
+    <div>
+        <button id="people" class ="button" type="submit">People</button>
+        <button id="planets" class ="button" type="submit">Planets</button>
+    </div>
+    <div class="main">
+        <div class="container"> 
+            <p>stuff in here</p>
+        </div>
+    </div>
+
+    <span class="links">
+        <a href="">previous 10</a>
+    </span>
+    <span class="middle">
+        <a href="">all</a>
+    </span>
+    <span class="last">
+        <a href="">next 10</a>
+    </span>
+
+</body>
+<script>
+    $(document).ready(function(){
+        $('#people').click(function(){
+            $.get('/people', function(data){
+                console.log("got the data from people", data);
+            }, 'json');
+        });
+        $('#planets').click(function(){
+            $.get('/planets', function(data){
+                console.log("got the data from planets", data);
+            }, 'json');
+        });
+    });
+
+</script>
+
+
+
+
+
+</html>
